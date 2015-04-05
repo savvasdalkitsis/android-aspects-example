@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Aspects(aspects = ConfigurablePageView.class)
 public @interface WithPageView {
 
-    String pageName();
+    Class<? extends Page> page();
     PageViewStrategy pageViewStrategy() default PageViewStrategy.START_STOP;
 }

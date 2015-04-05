@@ -31,6 +31,6 @@ public class NamedPageView extends NoOpActivityAspect {
 
     private void pullAttributesForPageView(Object objectWithPageView) {
         WithPageView sessionAnnotation = objectWithPageView.getClass().getAnnotation(WithPageView.class);
-        pageName = sessionAnnotation.pageName();
+        pageName = sessionAnnotation.page().getName();
     }
 }

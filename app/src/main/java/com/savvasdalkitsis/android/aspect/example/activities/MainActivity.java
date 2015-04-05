@@ -6,11 +6,14 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.savvasdalkitsis.android.aspect.example.R;
+import com.savvasdalkitsis.android.aspect.example.pageview.MainPage;
 import com.savvasdalkitsis.android.aspect.example.pageview.PageViewStrategy;
 import com.savvasdalkitsis.android.aspect.example.pageview.WithPageView;
 import com.shazam.android.aspects.base.activity.AspectActivity;
 
-@WithPageView(pageName = "main", pageViewStrategy = PageViewStrategy.RESUME_PAUSE)
+import java.util.UUID;
+
+@WithPageView(page = MainPage.class, pageViewStrategy = PageViewStrategy.RESUME_PAUSE)
 public class MainActivity extends AspectActivity {
 
     @Override
@@ -23,7 +26,9 @@ public class MainActivity extends AspectActivity {
     private class LaunchNewActivityClickListener implements View.OnClickListener {
         @Override
         public void onClick(@NonNull View v) {
-            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            intent.putExtra(SecondActivity.PARAM_TRACK_ID, UUID.randomUUID().toString());
+            startActivity(intent);
         }
     }
 }
