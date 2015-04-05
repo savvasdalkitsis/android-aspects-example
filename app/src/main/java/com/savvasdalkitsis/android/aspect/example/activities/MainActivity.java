@@ -6,10 +6,11 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.savvasdalkitsis.android.aspect.example.R;
+import com.savvasdalkitsis.android.aspect.example.pageview.PageViewStrategy;
 import com.savvasdalkitsis.android.aspect.example.pageview.WithPageView;
 import com.shazam.android.aspects.base.activity.AspectActivity;
 
-@WithPageView(pageName = "main")
+@WithPageView(pageName = "main", pageViewStrategy = PageViewStrategy.RESUME_PAUSE)
 public class MainActivity extends AspectActivity {
 
     @Override
