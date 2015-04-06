@@ -1,34 +1,55 @@
 package com.savvasdalkitsis.android.aspect.example.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ListView;
 
 import com.savvasdalkitsis.android.aspect.example.R;
+import com.savvasdalkitsis.android.aspect.example.loading.DataFetcher;
+import com.savvasdalkitsis.android.aspect.example.model.MainPresenter;
+import com.savvasdalkitsis.android.aspect.example.model.MainView;
+import com.savvasdalkitsis.android.aspect.example.model.TracksRetriever;
+import com.savvasdalkitsis.android.aspect.example.model.beans.Track;
 import com.savvasdalkitsis.android.aspect.example.pageview.MainPage;
 import com.savvasdalkitsis.android.aspect.example.pageview.PageViewStrategy;
 import com.savvasdalkitsis.android.aspect.example.pageview.WithPageView;
 import com.shazam.android.aspects.base.activity.AspectActivity;
 
-import java.util.UUID;
+import java.util.List;
 
 @WithPageView(page = MainPage.class, pageViewStrategy = PageViewStrategy.RESUME_PAUSE)
-public class MainActivity extends AspectActivity {
+public class MainActivity extends AspectActivity implements MainView {
+
+    private MainPresenter presenter;
+    private View progress;
+    private ListView tracksList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.start_new_activity).setOnClickListener(new LaunchNewActivityClickListener());
+        progress = findViewById(R.id.progress);
+        tracksList = (ListView) findViewById(R.id.tracks);
+        presenter = new MainPresenter(this, new DataFetcher<>(getLoaderManager(), 0, this,
+                new TracksRetriever()));
     }
 
-    private class LaunchNewActivityClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(@NonNull View v) {
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-            intent.putExtra(SecondActivity.PARAM_TRACK_ID, UUID.randomUUID().toString());
-            startActivity(intent);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.startPresenting();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.stopPresenting();
+    }
+
+    @Override
+    public void onTracksLoaded(List<Track> tracks) {
+        progress.setVisibility(View.INVISIBLE);
+        tracksList.setVisibility(View.VISIBLE);
+        tracksList.setAdapter(new TracksAdapter(tracks));
     }
 }
