@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.savvasdalkitsis.android.aspect.example.BuyButton;
 import com.savvasdalkitsis.android.aspect.example.R;
+import com.savvasdalkitsis.android.aspect.example.analytics.AttachPageViewToRoot;
 import com.savvasdalkitsis.android.aspect.example.model.TrackRetriever;
 import com.savvasdalkitsis.android.aspect.example.ads.AdConfigurator;
 import com.savvasdalkitsis.android.aspect.example.ads.AdFacade;
@@ -20,6 +21,7 @@ import com.shazam.android.aspects.base.activity.AspectActivity;
 
 @WithPageView(page = SecondPage.class)
 @WithAd(adPageName = "second_page")
+@AttachPageViewToRoot
 public class SecondActivity extends AspectActivity implements PageViewConfigurator<SecondPage>,
         AdConfigurator, DetailsView {
 
@@ -28,6 +30,7 @@ public class SecondActivity extends AspectActivity implements PageViewConfigurat
     private BuyButton buyButton;
     private DetailsPresenter presenter;
     private TextView track;
+    private SecondPage page;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,8 @@ public class SecondActivity extends AspectActivity implements PageViewConfigurat
 
     @Override
     public void configurePage(SecondPage page) {
-        page.addPageParameter("track_id", trackID);
+        this.page = page;
+        this.page.addPageParameter("trackid", trackID);
     }
 
     @Override

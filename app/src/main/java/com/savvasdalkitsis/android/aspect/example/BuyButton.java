@@ -6,9 +6,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 
-import com.savvasdalkitsis.android.aspect.example.analytics.EventAnalytics;
+import com.savvasdalkitsis.android.aspect.example.analytics.EventAnalyticsFromView;
 import com.savvasdalkitsis.android.aspect.example.analytics.EventType;
 import com.savvasdalkitsis.android.aspect.example.analytics.LoggingEventAnalytics;
+import com.savvasdalkitsis.android.aspect.example.analytics.ViewTraversingEventAnalytics;
 import com.savvasdalkitsis.android.aspect.example.model.beans.Track;
 
 import static com.savvasdalkitsis.android.aspect.example.analytics.EventParameters.Builder.eventParameters;
@@ -16,7 +17,8 @@ import static com.savvasdalkitsis.android.aspect.example.analytics.EventParamete
 public class BuyButton extends Button {
 
     private String trackId;
-    private final EventAnalytics eventAnalytics = new LoggingEventAnalytics();
+    private final EventAnalyticsFromView eventAnalytics = new ViewTraversingEventAnalytics(
+            new LoggingEventAnalytics());
 
     public BuyButton(Context context) {
         super(context);
@@ -45,7 +47,7 @@ public class BuyButton extends Button {
     private class SendEventOnClick implements OnClickListener {
         @Override
         public void onClick(@NonNull View v) {
-            eventAnalytics.sendEvent(EventType.USER_EVENT, eventParameters()
+            eventAnalytics.sendEvent(BuyButton.this, EventType.USER_EVENT, eventParameters()
                     .withParam("usereventtype", "buybuttonclick")
                     .withParam("trackid", trackId)
                     .build());

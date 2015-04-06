@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.savvasdalkitsis.android.aspect.example.R;
+import com.savvasdalkitsis.android.aspect.example.analytics.AttachPageViewToRoot;
 import com.savvasdalkitsis.android.aspect.example.loading.DataFetcher;
 import com.savvasdalkitsis.android.aspect.example.model.MainPresenter;
 import com.savvasdalkitsis.android.aspect.example.model.MainView;
@@ -18,6 +19,7 @@ import com.shazam.android.aspects.base.activity.AspectActivity;
 import java.util.List;
 
 @WithPageView(page = MainPage.class, pageViewStrategy = PageViewStrategy.RESUME_PAUSE)
+@AttachPageViewToRoot
 public class MainActivity extends AspectActivity implements MainView {
 
     private MainPresenter presenter;

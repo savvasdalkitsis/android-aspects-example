@@ -22,6 +22,14 @@ public class EventParameters {
             return new Builder();
         }
 
+        public static Builder from(EventParameters eventParameters) {
+            Builder builder = eventParameters();
+            for (Map.Entry<String, String> param : eventParameters.getParams().entrySet()) {
+                builder.withParam(param.getKey(), param.getValue());
+            }
+            return builder;
+        }
+
         public Builder withParam(String key, String value) {
             this.params.put(key, value);
             return this;
