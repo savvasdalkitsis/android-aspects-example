@@ -23,6 +23,10 @@ public class AdBinderAspect extends NoOpActivityAspect {
         AdView adView = (AdView) activity.findViewById(R.id.advert);
         if (adView != null) {
             adView.setAdId(adConfiguration.getAdId(adPageName));
+
+            if (activity instanceof AdConfigurator) {
+                ((AdConfigurator) activity).configureAd(adView);
+            }
             adView.loadAd();
         }
     }

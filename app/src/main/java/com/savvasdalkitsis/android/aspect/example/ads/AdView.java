@@ -11,7 +11,7 @@ import com.savvasdalkitsis.android.aspect.example.R;
 import static android.util.TypedValue.COMPLEX_UNIT_DIP;
 import static android.util.TypedValue.applyDimension;
 
-public class AdView extends RelativeLayout {
+public class AdView extends RelativeLayout implements AdFacade {
 
     private TextView adId;
     private TextView adKeywords;
@@ -47,6 +47,7 @@ public class AdView extends RelativeLayout {
         this.adId.setText("AdId: " + adId);
     }
 
+    @Override
     public void addKeyWord(String key, String value) {
         adKeywords.setText(adKeywords.getText().toString() + "key: " + key + " value: " + value + "\n");
     }
