@@ -6,7 +6,7 @@ import com.savvasdalkitsis.android.aspect.example.R;
 import com.savvasdalkitsis.android.aspect.example.pageview.WithPageView;
 import com.shazam.android.aspects.base.activity.AspectActivity;
 
-@WithPageView()
+@WithPageView(pageName = "second")
 public class SecondActivity extends AspectActivity {
 
     @Override

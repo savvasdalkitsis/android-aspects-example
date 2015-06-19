@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
-@Aspects(aspects = SimplePageView.class)
+@Aspects(aspects = NamedPageView.class)
 public @interface WithPageView {
+
+    String pageName();
 }

@@ -6,11 +6,10 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.savvasdalkitsis.android.aspect.example.R;
-import com.savvasdalkitsis.android.aspect.example.pageview.SimplePageView;
-import com.shazam.android.aspects.annotations.Aspects;
+import com.savvasdalkitsis.android.aspect.example.pageview.WithPageView;
 import com.shazam.android.aspects.base.activity.AspectActivity;
 
-@Aspects(aspects = SimplePageView.class)
+@WithPageView(pageName = "main")
 public class MainActivity extends AspectActivity {
 
     @Override
